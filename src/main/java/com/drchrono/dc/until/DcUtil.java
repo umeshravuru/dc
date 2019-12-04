@@ -3,10 +3,14 @@ package com.drchrono.dc.until;
 import com.drchrono.dc.constants.SqlConstants;
 import com.drchrono.dc.dto.Appointment;
 import com.drchrono.dc.dto.AppointmentsResponse;
+import com.drchrono.dc.dto.Medication;
+import com.drchrono.dc.dto.MedicationResponse;
 import com.drchrono.dc.dto.OauthToken;
 import com.drchrono.dc.dto.Patient;
 import com.drchrono.dc.dto.PatientResponse;
 import com.drchrono.dc.mapper.AppointmentMapper;
+import com.drchrono.dc.mapper.MedicationMapper;
+import com.drchrono.dc.mapper.PatientIDMapper;
 import com.drchrono.dc.mapper.PatientMapper;
 import com.google.gson.JsonSyntaxException;
 import java.sql.Types;
@@ -183,6 +187,52 @@ public class DcUtil {
 
   }
 
+
+  public MedicationResponse getMedications (String medicationURL) {
+
+    while (true) {
+      try {
+        String accessToken = System.getProperty("accessToken");
+        MedicationResponse medicationResponse = webSerivceCallsUtil
+            .callWebServiceGet(medicationURL, accessToken, MedicationResponse.class);
+        return medicationResponse;
+      } catch (JsonSyntaxException ie) {
+        LOGGER.error("JsonSyntaxException exception thrown: {}", ie.getMessage());
+        String accessToken = getAccessToken();
+        System.setProperty("accessToken", accessToken);
+      } catch (Unauthorized ue) {
+        LOGGER.error("Unauthorized exception thrown: {}", ue.getMessage());
+        String accessToken = getAccessToken();
+        System.setProperty("accessToken", accessToken);
+      } catch (Exception e) {
+        LOGGER.error("Exception thrown: {}", e.getMessage(), e);
+        return null;
+      }
+
+    }
+
+  }
+
+
+  public void insertAllMedication () {
+    List<String> patientIds = getAllPatientIDs();
+    for (String patinetID : patientIds) {
+      insertMedication(patinetID);
+    }
+  }
+
+  public void insertAllAppointments () {
+    List<String> patientIds = getAllPatientIDs();
+    for (String patinetID : patientIds) {
+      insertAppointments(patinetID);
+    }
+  }
+
+  public List<String> getAllPatientIDs () {
+    return jdbcTemplate.query(SqlConstants.getAllPatientIds, new PatientIDMapper());
+  }
+
+
   public void insertAppointments (String patientID) {
     LOGGER.info("Inside insertAppointments method");
 
@@ -250,6 +300,87 @@ public class DcUtil {
             new AppointmentMapper());
     if (appointments.size() > 0) {
       return appointments.get(0);
+    } else {
+      return null;
+    }
+  }
+
+
+  public void insertMedication (String patientID) {
+    LOGGER.info("Inside insertMedication method");
+
+    Long startTime = System.currentTimeMillis();
+    String getMedicationURL =
+        "https://drchrono.com/api/medications?patient=" + patientID;
+    while (true) {
+
+      MedicationResponse medicationResponse = getMedications(getMedicationURL);
+
+      int[] types = {
+          Types.INTEGER, Types.INTEGER, Types.INTEGER, Types.INTEGER, Types.VARCHAR,
+          Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER,
+          Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
+          Types.VARCHAR, Types.BOOLEAN, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
+          Types.VARCHAR, Types.VARCHAR, Types.BOOLEAN
+      };
+
+      for (Medication medication : medicationResponse.getResults()) {
+        Object[] params = {
+            medication.getId(),
+            medication.getDoctor(),
+            medication.getPatient(),
+            medication.getAppointment(),
+            medication.getDate_prescribed(),
+            medication.getDate_started_taking(),
+            medication.getDate_stopped_taking(),
+            medication.getNotes(),
+            medication.getOrder_status(),
+            medication.getNumber_refills(),
+            medication.getDispense_quantity(),
+            medication.getDosage_quantity(),
+            medication.getDosage_units(),
+            medication.getRxnorm(),
+            medication.getRoute(),
+            medication.getFrequency(),
+            medication.getPrn(),
+            medication.getIndication(),
+            medication.getSignature_note(),
+            medication.getPharmacy_note(),
+            medication.getName(),
+            medication.getStatus(),
+            medication.getDaw()
+        };
+
+        Medication medicationFromDB = getMedication(medication.getId());
+
+        if (medicationFromDB == null || medicationFromDB.getId() == null) {
+          LOGGER.info("Appointment {} is not in the database, so Inserting into database.",
+              medication.getId());
+          jdbcTemplate.update(SqlConstants.insertMedication, params, types);
+        }
+
+      }
+      getMedicationURL = medicationResponse.getNext();
+      if (StringUtils.isEmpty(getMedicationURL)) {
+        LOGGER.info("Total time to insert medications is: {} seconds",
+            (System.currentTimeMillis() - startTime) / 1000);
+        LOGGER.info("Exiting from insertMedication method");
+        break;
+      }
+
+    }
+  }
+
+  public Medication getMedication (int medicationID) {
+    MapSqlParameterSource selectMedicationParams = new MapSqlParameterSource();
+    selectMedicationParams.addValue("id", medicationID);
+    LOGGER.info("Getting medication {} from the database", medicationID);
+    namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+    List<Medication> medications = namedParameterJdbcTemplate
+        .query(SqlConstants.getMedication, selectMedicationParams,
+            new MedicationMapper());
+    if (medications.size() > 0) {
+      return medications.get(0);
     } else {
       return null;
     }

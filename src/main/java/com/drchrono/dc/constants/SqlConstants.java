@@ -25,7 +25,18 @@ public class SqlConstants {
           + "status,updated_at) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
+  public final static String insertMedication =
+      "INSERT into public.medication (id,doctor,patient,appointment,date_prescribed,"
+          + "date_started_taking,date_stopped_taking,notes,order_status,number_refills,"
+          + "dispense_quantity,dosage_quantity,dosage_units,rxnorm,route,frequency,prn,"
+          + "indication,signature_note,pharmacy_note,name,status,daw) "
+          + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
   public final static String getAppointment = "SELECT * from public.appointments where appointmentid = :appointmentid";
+
+  public final static String getMedication = "SELECT * from public.medication where id = :id";
+
+  public final static String getAllPatientIds = "SELECT id from public.patient";
 
 
 }

@@ -17,10 +17,21 @@ public class ApiController {
   @Autowired
   DcUtil dcUtil;
 
-  @RequestMapping(value = "/insertData", method = RequestMethod.GET)
-  public void test () {
+  @RequestMapping(value = "/insertPatientData", method = RequestMethod.GET)
+  public void insertPatientData () {
     dcUtil.insertPatient();
 
+  }
+
+
+  @RequestMapping(value = "/insertAppointmentData", method = RequestMethod.GET)
+  public void insertAppointmentData () {
+    dcUtil.insertAllAppointments();
+  }
+
+  @RequestMapping(value = "/insertMedicationData", method = RequestMethod.GET)
+  public void insertMedicationData () {
+    dcUtil.insertAllMedication();
   }
 
 }
