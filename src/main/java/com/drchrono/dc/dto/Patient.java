@@ -2,7 +2,7 @@ package com.drchrono.dc.dto;
 
 import java.util.List;
 
-public class User {
+public class Patient {
 
   private Integer id;
   private String chart_id;
@@ -421,7 +421,7 @@ public class User {
 
   @Override
   public String toString () {
-    final StringBuilder sb = new StringBuilder("User{");
+    final StringBuilder sb = new StringBuilder("Patient{");
     sb.append("id=").append(id);
     sb.append(", chart_id='").append(chart_id).append('\'');
     sb.append(", first_name='").append(first_name).append('\'');

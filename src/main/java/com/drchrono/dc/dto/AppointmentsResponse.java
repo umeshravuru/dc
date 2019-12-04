@@ -2,11 +2,12 @@ package com.drchrono.dc.dto;
 
 import java.util.List;
 
-public class UserResponse {
+public class AppointmentsResponse {
 
   private String previous;
-  private List<User> results = null;
+  private List<Appointment> results = null;
   private String next;
+
 
   public String getPrevious () {
     return previous;
@@ -16,11 +17,11 @@ public class UserResponse {
     this.previous = previous;
   }
 
-  public List<User> getResults () {
+  public List<Appointment> getResults () {
     return results;
   }
 
-  public void setResults (List<User> results) {
+  public void setResults (List<Appointment> results) {
     this.results = results;
   }
 
@@ -34,7 +35,7 @@ public class UserResponse {
 
   @Override
   public String toString () {
-    final StringBuilder sb = new StringBuilder("UserResponse{");
+    final StringBuilder sb = new StringBuilder("AppointmentsResponse{");
     sb.append("previous='").append(previous).append('\'');
     sb.append(", results=").append(results);
     sb.append(", next='").append(next).append('\'');

@@ -1,7 +1,6 @@
 package com.drchrono.dc.controller;
 
 import com.drchrono.dc.until.DcUtil;
-import com.drchrono.dc.until.PostgresUtl;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,16 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ApiController {
 
-
   @Autowired
   DcUtil dcUtil;
 
-  @Autowired
-  PostgresUtl postgresUtl;
-
-  @RequestMapping(value = "/test", method = RequestMethod.GET)
+  @RequestMapping(value = "/insertData", method = RequestMethod.GET)
   public void test () {
-    postgresUtl.insertPatient();
+    dcUtil.insertPatient();
 
   }
 

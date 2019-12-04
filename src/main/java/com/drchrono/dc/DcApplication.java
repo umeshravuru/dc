@@ -15,7 +15,7 @@ public class DcApplication {
 
   public static void main (String[] args) {
     if (StringUtils.isEmpty(System.getProperty("spring.profiles.active"))) {
-      System.setProperty("spring.profiles.active", "local");
+      System.setProperty("spring.profiles.active", "cloud");
     }
     SpringApplication.run(DcApplication.class, args);
   }

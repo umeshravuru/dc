@@ -2,8 +2,8 @@ package com.drchrono.dc.constants;
 
 public class SqlConstants {
 
-  public final static String insertUser =
-      "INSERT INTO public.USER (id,chart_id,first_name,middle_name,"
+  public final static String insertPatient =
+      "INSERT INTO public.patient (id,chart_id,first_name,middle_name,"
           + "last_name,date_of_birth,gender,social_security_number,race,ethnicity,patient_photo,"
           + "patient_payment_profile,patient_status,home_phone,cell_phone,office_phone,email,"
           + "address,city,state,zip_code,emergency_contact_name,emergency_contact_phone,"
@@ -15,7 +15,17 @@ public class SqlConstants {
           + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 
-  public final static String getUser = "SELECT * from public.USER where id = :ID";
+  public final static String getPatient = "SELECT * from public.patient where id = :ID";
+
+
+  public final static String insertAppointment =
+      "INSERT into public.appointments (appointmentid,allow_overlapping,appt_is_break,"
+          + "base_recurring_appointment,color,created_at,deleted_flag,doctor,duration,exam_room,"
+          + "is_walk_in,notes,office,patient,profile,reason,recurring_appointment,scheduled_time,"
+          + "status,updated_at) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+
+  public final static String getAppointment = "SELECT * from public.appointments where appointmentid = :appointmentid";
 
 
 }

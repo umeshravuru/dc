@@ -1,12 +1,12 @@
 package com.drchrono.dc.until;
 
-import com.drchrono.dc.dto.UserResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -20,8 +20,10 @@ public class WebSerivceCallsUtil {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WebSerivceCallsUtil.class);
 
+  @Autowired
+  CommonUtil commonUtil;
 
-  public static <T> T callWebServicePOST (String webServiceURL, String messageBody,
+  public <T> T callWebServicePOST (String webServiceURL, String messageBody,
       Class<T> classToBeReturned) {
     LOGGER.info("Calling POST: {}", webServiceURL);
     LOGGER.info("With message body: {}", messageBody);
@@ -45,7 +47,8 @@ public class WebSerivceCallsUtil {
   }
 
 
-  public UserResponse getPatientData (String webServiceURL, String accessToke) throws Unauthorized {
+  public <T> T callWebServiceGet (String webServiceURL, String accessToke,
+      Class<T> classToBeReturned) throws Unauthorized {
     LOGGER.trace("callWebServiceGET - Enter");
     LOGGER.info("Calling URL :: " + webServiceURL);
     try {
@@ -53,9 +56,16 @@ public class WebSerivceCallsUtil {
       HttpResponse<String> response = Unirest.get(webServiceURL)
           .header("Authorization", "Bearer " + accessToke)
           .asString();
-
-      UserResponse userResponse = new Gson().fromJson(response.getBody(), UserResponse.class);
-      return userResponse;
+      if (response.getStatus() == 429) {
+        LOGGER.info("Quota limit exceeded. {}", response.getBody());
+        Long waitTime = commonUtil.getWaitTime();
+        LOGGER.info("Sleeping for {}mins", waitTime);
+        Thread.sleep(waitTime * 60 * 1000);
+        LOGGER.info("Done sleeping for {}mins", waitTime);
+        throw new JsonSyntaxException("");
+      }
+      T webServiceResponse = new Gson().fromJson(response.getBody(), classToBeReturned);
+      return webServiceResponse;
     } catch (JsonSyntaxException ie) {
       LOGGER.error("JsonSyntaxException exception thrown: {}", ie.getMessage());
       throw ie;
@@ -68,5 +78,6 @@ public class WebSerivceCallsUtil {
     }
 
   }
+
 
 }
