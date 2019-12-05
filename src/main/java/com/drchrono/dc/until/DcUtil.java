@@ -132,7 +132,6 @@ public class DcUtil {
           jdbcTemplate.update(SqlConstants.insertPatient, params, types);
         }
 
-        insertAppointments(String.valueOf(patient.getId()));
 
       }
       getPatientURL = patientResponse.getNext();
