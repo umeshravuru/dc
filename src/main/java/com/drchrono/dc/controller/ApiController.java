@@ -17,6 +17,14 @@ public class ApiController {
   @Autowired
   DcUtil dcUtil;
 
+  @RequestMapping(value = "/ping", method = RequestMethod.GET)
+  public String ping () {
+
+    return "Working";
+
+  }
+
+
   @RequestMapping(value = "/insertPatientData", method = RequestMethod.GET)
   public void insertPatientData () {
     dcUtil.insertPatient();
