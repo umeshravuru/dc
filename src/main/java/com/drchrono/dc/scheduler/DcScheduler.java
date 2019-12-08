@@ -15,7 +15,7 @@ public class DcScheduler {
   @Autowired
   DcUtil dcUtil;
 
-  @Scheduled(cron = "0 0 20 * * *")
+  @Scheduled(cron = "0 0 2 * * *")
   public void insertAllData() {
     LOGGER.info("Inside insertAllData method");
 
