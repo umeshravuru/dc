@@ -19,9 +19,15 @@ public class ApiController {
 
   @RequestMapping(value = "/ping", method = RequestMethod.GET)
   public String ping () {
-
     return "Working";
+  }
 
+  @RequestMapping(value = "/all", method = RequestMethod.GET)
+  public String all () {
+    dcUtil.insertPatient();
+    dcUtil.insertAllAppointments();
+    dcUtil.insertAllMedication();
+    return "Done";
   }
 
 
