@@ -386,4 +386,18 @@ public class DcUtil {
   }
 
 
+  public Patient getLatestPatientUpdated () {
+
+    LOGGER.info("Getting latest patient info from the database");
+    List<Patient> patients = jdbcTemplate
+        .query(SqlConstants.getLatestPatient,
+            new PatientMapper());
+    if (patients.size() > 0) {
+      return patients.get(0);
+    } else {
+      return null;
+    }
+  }
+
+
 }

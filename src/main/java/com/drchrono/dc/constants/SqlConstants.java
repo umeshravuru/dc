@@ -18,6 +18,9 @@ public class SqlConstants {
   public final static String getPatient = "SELECT * from public.patient where id = :ID";
 
 
+  public final static String getLatestPatient = "SELECT * from public.patient order by updated_dttm desc limit 1";
+
+
   public final static String insertAppointment =
       "INSERT into public.appointments (appointmentid,allow_overlapping,appt_is_break,"
           + "base_recurring_appointment,color,created_at,deleted_flag,doctor,duration,exam_room,"

@@ -30,4 +30,15 @@ public class PatientController {
 
   }
 
+  @RequestMapping(value = "/getLatestPatientUpdated", method = RequestMethod.GET)
+  @ApiOperation(value = "getLatestPatientUpdated", nickname = "getLatestPatientUpdated")
+  @ApiResponses(
+      {@ApiResponse(code = 200, message = "SUCCESS", response = Patient.class),
+          @ApiResponse(code = 500, message = "INTERNAL_ERROR", response = String.class)})
+  public Patient getLatestPatientUpdated () {
+    Patient patient = dcUtil.getLatestPatientUpdated();
+    return patient;
+
+  }
+
 }
