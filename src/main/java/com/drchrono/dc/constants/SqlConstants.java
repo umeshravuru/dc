@@ -35,6 +35,25 @@ public class SqlConstants {
           + "indication,signature_note,pharmacy_note,name,status,daw) "
           + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
+  public final static String insertRating =
+      "INSERT into public.ratings (patient,provider,birthday,gender,visit,chart,check_in_info,"
+          + "fallin_asleep_rating,fallin_asleep_desc,sleep_during_the_night_rating,"
+          + "sleep_during_the_night_desc,waking_up_too_easily_rating,waking_up_too_easily_desc,"
+          + "sleeping_too_much_rating,sleeping_too_much_desc,feeling_sad_rating,feeling_sad_desc,"
+          + "decreased_appetite_rating,decreased_appetite_desc,increased_appetite_rating,"
+          + "increased_appetite_desc,decreased_weight_rating,decreased_weight_desc,"
+          + "increased_weight_rating,increased_weight_desc,concentration_decision_making_rating,"
+          + "concentration_decision_making_desc,view_of_myself_rating,view_of_myself_desc,"
+          + "thoughts_of_death_or_suicide_rating,thoughts_of_death_or_suicide_desc,"
+          + "general_interest_rating,general_interest_desc,energy_level_rating,energy_level_desc,"
+          + "feeling_slowed_down_rating,feeling_slowed_down_desc,feeling_restless_rating,"
+          + "feeling_restless_desc,feeling_nervous_rating,feeling_nervous_desc,"
+          + "stop_worrying_rating,stop_worrying_desc,too_worrying_rating,too_worrying_desc,"
+          + "trouble_relaxing_rating,trouble_relaxing_desc,psychomotor_rating,psychomotor_desc,"
+          + "irritable_rating,irritable_desc,fear_rating,fear_desc) "
+          + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
+          + "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
   public final static String getAppointment = "SELECT * from public.appointments where appointmentid = :appointmentid";
 
   public final static String getMedication = "SELECT * from public.medication where id = :id";
