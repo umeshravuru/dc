@@ -1,7 +1,6 @@
 package com.drchrono.dc.controller;
 
 import com.drchrono.dc.bo.RatingsBO;
-import com.drchrono.dc.dto.Patient;
 import com.drchrono.dc.dto.Rating;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,7 +22,7 @@ public class RatingsController {
   @RequestMapping(value = "/insertRating", method = RequestMethod.POST)
   @ApiOperation(value = "insertRating", nickname = "insertRating")
   @ApiResponses(
-      {@ApiResponse(code = 200, message = "SUCCESS", response = Patient.class),
+      {@ApiResponse(code = 200, message = "SUCCESS", response = Rating.class),
           @ApiResponse(code = 500, message = "INTERNAL_ERROR", response = String.class)})
   public void insertRating (@RequestBody Rating rating) {
     ratingsBO.insertRating(rating);
