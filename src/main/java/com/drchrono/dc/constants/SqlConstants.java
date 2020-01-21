@@ -36,7 +36,7 @@ public class SqlConstants {
           + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   public final static String insertRating =
-      "INSERT into public.ratings (patient,provider,birthday,gender,visit,chart,check_in_info,"
+      "INSERT into public.ratings (stress,stresslevel,provider,birthday,gender,visit,chart,check_in_info,"
           + "fallin_asleep_rating,fallin_asleep_desc,sleep_during_the_night_rating,"
           + "sleep_during_the_night_desc,waking_up_too_easily_rating,waking_up_too_easily_desc,"
           + "sleeping_too_much_rating,sleeping_too_much_desc,feeling_sad_rating,feeling_sad_desc,"
