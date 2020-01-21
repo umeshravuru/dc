@@ -25,17 +25,18 @@ public class RatingsBO {
     Long startTime = System.currentTimeMillis();
 
     int[] types = {Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
-        Types.VARCHAR, Types.VARCHAR,Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,
-        Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,
-        Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,
-        Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,
-        Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,
-        Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,
-        Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,
-        Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR,Types.BIGINT,Types.VARCHAR };
+        Types.VARCHAR,
+        Types.VARCHAR, Types.VARCHAR, Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR,
+        Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR,
+        Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR,
+        Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR,
+        Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR,
+        Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR,
+        Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR,
+        Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR, Types.BIGINT, Types.VARCHAR};
 
     Object[] params = {
-        rating.getPatient(), rating.getProvider(), rating.getBirthday(), rating.getGender(),
+        rating.getStress(), rating.getStresslevel(), rating.getProvider(), rating.getBirthday(), rating.getGender(),
         rating.getVisit(), rating.getChart(), rating.getCheck_in_info(),
         rating.getFallin_asleep_rating(), rating.getFallin_asleep_desc(),
         rating.getSleep_during_the_night_rating(), rating.getSleep_during_the_night_desc(),

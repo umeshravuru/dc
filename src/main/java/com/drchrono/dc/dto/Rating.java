@@ -2,7 +2,8 @@ package com.drchrono.dc.dto;
 
 public class Rating {
 
-  private String patient;
+  private String stress;
+  private String stresslevel;
   private String provider;
   private String birthday;
   private String gender;
@@ -58,12 +59,20 @@ public class Rating {
   private int general_interest_rating;
   private String general_interest_desc;
 
-  public String getPatient () {
-    return patient;
+  public String getStress () {
+    return stress;
   }
 
-  public void setPatient (String patient) {
-    this.patient = patient;
+  public void setStress (String stress) {
+    this.stress = stress;
+  }
+
+  public String getStresslevel () {
+    return stresslevel;
+  }
+
+  public void setStresslevel (String stresslevel) {
+    this.stresslevel = stresslevel;
   }
 
   public String getProvider () {
@@ -501,7 +510,8 @@ public class Rating {
   @Override
   public String toString () {
     final StringBuilder sb = new StringBuilder("Rating{");
-    sb.append("patient='").append(patient).append('\'');
+    sb.append("stress='").append(stress).append('\'');
+    sb.append(", stresslevel='").append(stresslevel).append('\'');
     sb.append(", provider='").append(provider).append('\'');
     sb.append(", birthday='").append(birthday).append('\'');
     sb.append(", gender='").append(gender).append('\'');
@@ -557,8 +567,8 @@ public class Rating {
     sb.append(", irritable_desc='").append(irritable_desc).append('\'');
     sb.append(", fear_rating=").append(fear_rating);
     sb.append(", fear_desc='").append(fear_desc).append('\'');
-    sb.append(", getGeneral_interest_rating=").append(general_interest_rating);
-    sb.append(", getGeneral_interest_desc='").append(general_interest_desc).append('\'');
+    sb.append(", general_interest_rating=").append(general_interest_rating);
+    sb.append(", general_interest_desc='").append(general_interest_desc).append('\'');
     sb.append('}');
     return sb.toString();
   }
